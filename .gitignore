@@ -1,0 +1,28 @@
+# Data, results and figures — not tracked
+data/
+figures/
+extra_data/
+
+# R session artifacts
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Project notes / docs (not scripts)
+*.html
+session_summary.md
+methods_kbhb_mra.md
+kbhb_mra_project_summary.md
+
+# Hive plot prototype (superseded by circos + sankey)
+hiveplot_tmr_kbhb.py
