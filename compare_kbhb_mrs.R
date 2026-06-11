@@ -80,36 +80,37 @@ message("data/kbhb_mrs_comparison.tsv saved")
 # ============================================================
 # SECTION 3: Per-sample VIPER activity (combined across cohorts)
 # ============================================================
-# metaViper() is not available in the viper package. Instead:
-#   1. Run single-sample viper() on each cohort with its own regulon.
-#   2. Z-score each cohort independently per TF (makes scores cross-platform
-#      comparable before merging).
-#   3. Combine into a single TF x sample matrix.
+# Run per-sample VIPER on each dataset using its own regulon,
+# then integrate scores — manual equivalent of metaVIPER.
 
-message("Rebuilding regulons for per-sample VIPER...")
+# Reconstruct regulons for metaVIPER
 tcga_basal  <- readRDS("data/tcga_basal_expr.rds")
 mtbrc_basal <- readRDS("data/mtbrc_basal_expr.rds")
 
 tcga_regulon  <- aracne2regulon("data/tcga_basal_network.txt",  eset = tcga_basal)
 mtbrc_regulon <- aracne2regulon("data/mtbrc_basal_network.txt", eset = mtbrc_basal)
 
-message("Running per-sample VIPER (TCGA)...")
-act_tcga  <- viper(eset = tcga_basal,  regulon = tcga_regulon,  minsize = 25, verbose = FALSE)
+# Each dataset uses its own (most informative) regulon; scores are
+# z-normalized per TF within each dataset before combining.
 
-message("Running per-sample VIPER (METABRIC)...")
-act_mtbrc <- viper(eset = mtbrc_basal, regulon = mtbrc_regulon, minsize = 25, verbose = FALSE)
+# Run per-sample VIPER — TCGA
+tcga_act <- viper(eset = tcga_basal, regulon = tcga_regulon,
+                  minsize = 25, verbose = FALSE)
 
-# Restrict to TFs present in both regulons
-common_tfs <- intersect(rownames(act_tcga), rownames(act_mtbrc))
-cat("TFs present in both cohorts:", length(common_tfs), "\n")
+# Run per-sample VIPER — METABRIC
+mtbrc_act <- viper(eset = mtbrc_basal, regulon = mtbrc_regulon,
+                   minsize = 25, verbose = FALSE)
 
-# Z-score each cohort independently (per TF across samples)
-zscore_rows <- function(mat) t(scale(t(mat)))
-act_tcga_z  <- zscore_rows(act_tcga[common_tfs, ])
-act_mtbrc_z <- zscore_rows(act_mtbrc[common_tfs, ])
+# Z-score per TF within each dataset to make activity scales comparable
+z_rows     <- function(m) t(scale(t(m)))
+tcga_act_z  <- z_rows(tcga_act)
+mtbrc_act_z <- z_rows(mtbrc_act)
 
-meta_act <- cbind(act_tcga_z, act_mtbrc_z)
-cat("Combined activity matrix:", dim(meta_act), "\n")
+# Combine: TFs present in both regulons, all samples
+common_tfs <- intersect(rownames(tcga_act_z), rownames(mtbrc_act_z))
+meta_act   <- cbind(tcga_act_z[common_tfs, ], mtbrc_act_z[common_tfs, ])
+cat("TFs in common:", length(common_tfs), "\n")
+cat("Combined activity dimensions:", dim(meta_act), "\n")
 
 saveRDS(meta_act, "data/kbhb_metaviper_activity.rds")
 message("data/kbhb_metaviper_activity.rds saved")
