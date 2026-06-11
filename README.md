@@ -21,8 +21,7 @@ Computational pipeline to identify and characterize transcriptional master regul
 
 | Script | Description |
 |--------|-------------|
-| `download_tcga_rnaseq.R` | Download TCGA-BRCA RNA-seq from GDC (TCGAbiolinks) |
-| `brca_tcga_mtbrc.R` | Pre-process TCGA and METABRIC; batch correction (ComBat); filter protein-coding genes |
+| `brca_tcga_mtbrc.R` | Download TCGA-BRCA RNA-seq (TCGAbiolinks) and METABRIC (cBioPortal); pre-process; batch correction (ComBat); filter protein-coding genes |
 | `basal_pre_networks.R` | Prepare expression matrices for ARACNe-AP network inference |
 | `mra_kbhb.R` | msVIPER MRA with Kbhb signature; shadow analysis; Stouffer meta-analysis |
 | `de_kbhb.R` | Differential expression (DESeq2 / limma) and cross-cohort concordance classification |
@@ -75,14 +74,13 @@ TCGA and METABRIC expression data are downloaded automatically by `download_tcga
 ## Execution order
 
 ```bash
-Rscript download_tcga_rnaseq.R   # 1. Download TCGA
-Rscript brca_tcga_mtbrc.R        # 2. Pre-process both cohorts
-Rscript basal_pre_networks.R     # 3. Export matrices for ARACNe-AP
+Rscript brca_tcga_mtbrc.R        # 1. Download + pre-process TCGA and METABRIC
+Rscript basal_pre_networks.R     # 2. Export matrices for ARACNe-AP
 # → Run ARACNe-AP on cluster
-Rscript mra_kbhb.R               # 4. MRA + meta-analysis
-Rscript de_kbhb.R                # 5. Differential expression
-Rscript compare_kbhb_mrs.R       # 6. ORA and summary figures
-Rscript circos_tmr_kbhb.R        # 7. Circos + Sankey visualization
+Rscript mra_kbhb.R               # 3. MRA + meta-analysis
+Rscript de_kbhb.R                # 4. Differential expression
+Rscript compare_kbhb_mrs.R       # 5. ORA and summary figures
+Rscript circos_tmr_kbhb.R        # 6. Circos + Sankey visualization
 ```
 
 ---
