@@ -277,9 +277,13 @@ message("figures/fig3_metaviper_heatmap.pdf saved")
 
 panel <- (fig1 | fig2) / fig3 +
   plot_annotation(
-    title   = "Kbhb transcriptional program in Basal BRCA — MRA",
-    caption = "Huang et al. 2021 gene set | ARACNe-AP + msVIPER | TCGA + METABRIC",
-    theme   = theme(plot.title = element_text(face = "bold", size = 14))
+    title       = "Kbhb transcriptional program in Basal BRCA — MRA",
+    caption     = "Huang et al. 2021 gene set | ARACNe-AP + msVIPER | TCGA + METABRIC",
+    tag_levels  = "A",
+    theme       = theme(
+      plot.title = element_text(face = "bold", size = 14),
+      plot.tag   = element_text(face = "bold", size = 16)
+    )
   )
 
 ggsave("figures/panel_kbhb_mra.pdf", panel, width = 16, height = 12)
@@ -541,3 +545,4 @@ message("Data tables in data/:")
 message("  ORA_pathway_index.tsv     — all enriched pathways with numeric ID")
 message("  ORA_tmr_counts.tsv        — pathways per TMR (GO-BP / Reactome / total)")
 message("  ORA_top_shared_pathways.tsv — top 20 pathways shared across most TMRs")
+message("Note: shadow network panels (C/D) are part of figures/fig_supp_combined.pdf — see mra_kbhb.R")
