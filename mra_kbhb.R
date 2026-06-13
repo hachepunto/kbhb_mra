@@ -371,11 +371,10 @@ panel_D <- .make_shadow_plot(edges_mtbrc_sh, nodes_mtbrc_sh,
 # ── Legend ───────────────────────────────────────────────────
 
 legend_df <- data.frame(
-  x     = c(1,   1,   5,   5),
-  y     = c(2,   1,   2,   1),
-  fill  = c("#C0392B", "#2980B9", "#E67E22", "grey65"),
+  x     = c(1,   5,   9),
+  y     = c(1,   1,   1),
+  fill  = c("#C0392B", "#E67E22", "grey65"),
   label = c("TMR (activated, meta-FDR < 0.05)",
-            "TMR (repressed, meta-FDR < 0.05)",
             "Cohort-significant regulator",
             "Shadow target (explained node)"),
   stringsAsFactors = FALSE
@@ -385,7 +384,7 @@ p_legend <- ggplot(legend_df, aes(x, y)) +
   geom_point(aes(fill = I(fill)), shape = 21, size = 5,
              color = "white", stroke = 1) +
   geom_text(aes(label = label), hjust = 0, nudge_x = 0.18, size = 3) +
-  xlim(0.7, 9.5) + ylim(0.5, 2.8) +
+  xlim(0.7, 12.5) + ylim(0.3, 2) +
   theme_void() +
   labs(title = "Node type") +
   theme(
