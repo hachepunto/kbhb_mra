@@ -1,6 +1,37 @@
-# Data, results and figures — not tracked
-data/
-figures/
+# Raw/processed third-party expression data (TCGA-BRCA, METABRIC) — not tracked.
+# Public via GDC/cBioPortal (see manuscript) and regenerable via brca_tcga_mtbrc.R
+# and basal_pre_networks.R. Result tables and ARACNe-AP networks in data/ ARE tracked.
+data/tcga_brca_rnaseq_se.rds
+data/mtbrc_expr.rds
+data/tcga_basal_expr.rds
+data/mtbrc_basal_expr.rds
+data/tcga_normal_expr.rds
+data/mtbrc_normal_expr.rds
+data/tcga_basal_matrix.txt
+data/mtbrc_basal_matrix.txt
+data/tcga_basal_mrs.rds
+data/mtbrc_basal_mrs.rds
+data/tcga_de_results.rds
+data/mtbrc_de_results.rds
+data/kbhb_metaviper_activity.rds
+data/kbhb_geneset.rds
+data/kbhb_mrs_comparison.rds
+data/kbhb_ora_results.rds
+data/lambert2018_DatabaseExtract_v1.01.csv
+data/TFs_Lambert2018.txt
+data/tcga_brca_subtypes.rds
+data/mtbrc_clinical.rds
+data/mtbrc_clinical_mrna.rds
+data/.DS_Store
+
+# Figures — only the final numbered manuscript figures (Figure*.pdf, FigureS*.pdf)
+# at the top level of figures/ are tracked. Raster duplicates/zip/intermediate panels are not.
+figures/*.png
+figures/Figures/
+figures/misc/
+figures/Figures.zip
+figures/.DS_Store
+
 extra_data/
 
 # R session artifacts

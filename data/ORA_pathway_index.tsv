@@ -1,0 +1,445 @@
+PathID	source	Pathway
+1	GO-BP	RNA localization
+2	GO-BP	ribonucleoprotein complex biogenesis
+3	GO-BP	chromosome segregation
+4	GO-BP	protein localization to Cajal body
+5	GO-BP	regulation of telomerase RNA localization to Cajal body
+6	GO-BP	telomere organization
+7	GO-BP	DNA replication
+8	GO-BP	chromosome localization
+9	GO-BP	heterochromatin formation
+10	GO-BP	kinetochore assembly
+11	GO-BP	mRNA catabolic process
+12	GO-BP	membraneless organelle assembly
+13	GO-BP	negative regulation of gene expression, epigenetic
+14	GO-BP	nucleobase biosynthetic process
+15	GO-BP	post-transcriptional regulation of gene expression
+16	GO-BP	protein folding
+17	GO-BP	protein-RNA complex organization
+18	GO-BP	regulation of DNA metabolic process
+19	GO-BP	signal transduction in response to DNA damage
+20	GO-BP	cell cycle phase transition
+21	GO-BP	mitochondrial gene expression
+22	GO-BP	mitotic cytokinesis
+23	GO-BP	nuclear division
+24	GO-BP	nucleic acid catabolic process
+25	GO-BP	positive regulation of chromosome organization
+26	GO-BP	protein insertion into mitochondrial membrane
+27	GO-BP	rRNA metabolic process
+28	GO-BP	regulation of microtubule cytoskeleton organization
+29	GO-BP	ribonucleoside monophosphate biosynthetic process
+30	GO-BP	spindle localization
+31	GO-BP	CENP-A containing chromatin assembly
+32	GO-BP	DNA conformation change
+33	GO-BP	GMP biosynthetic process
+34	GO-BP	IMP metabolic process
+35	GO-BP	NLS-bearing protein import into nucleus
+36	GO-BP	RNA catabolic process
+37	GO-BP	RNA export from nucleus
+38	GO-BP	alternative mRNA splicing, via spliceosome
+39	GO-BP	animal organ regeneration
+40	GO-BP	attachment of spindle microtubules to kinetochore
+41	GO-BP	cell cycle checkpoint signaling
+42	GO-BP	cell surface receptor protein serine/threonine kinase signaling pathway
+43	GO-BP	cellular respiration
+44	GO-BP	cellular response to estradiol stimulus
+45	GO-BP	cilium organization
+46	GO-BP	establishment of spindle localization
+47	GO-BP	establishment or maintenance of cell polarity
+48	GO-BP	import into nucleus
+49	GO-BP	iron-sulfur cluster assembly
+50	GO-BP	liver development
+51	GO-BP	mRNA processing
+52	GO-BP	mRNA splicing, via spliceosome
+53	GO-BP	macromolecule methylation
+54	GO-BP	meiotic cell cycle
+55	GO-BP	methylation
+56	GO-BP	microtubule-based movement
+57	GO-BP	mitochondrial translation
+58	GO-BP	mitochondrion organization
+59	GO-BP	mitotic cell cycle phase transition
+60	GO-BP	mitotic nuclear division
+61	GO-BP	mitotic sister chromatid segregation
+62	GO-BP	mitotic spindle checkpoint signaling
+63	GO-BP	negative regulation of plasma membrane bounded cell projection assembly
+64	GO-BP	nuclear membrane disassembly
+65	GO-BP	nuclear pore complex assembly
+66	GO-BP	nucleocytoplasmic transport
+67	GO-BP	positive regulation of cell cycle process
+68	GO-BP	positive regulation of centriole replication
+69	GO-BP	positive regulation of gluconeogenesis
+70	GO-BP	positive regulation of mitotic sister chromatid separation
+71	GO-BP	protein import into nucleus
+72	GO-BP	protein insertion into membrane
+73	GO-BP	protein localization to kinetochore
+74	GO-BP	protein localization to nucleus
+75	GO-BP	protein stabilization
+76	GO-BP	protein-RNA complex assembly
+77	GO-BP	rRNA processing
+78	GO-BP	regulation of DNA replication
+79	GO-BP	regulation of chromosome organization
+80	GO-BP	regulation of chromosome segregation
+81	GO-BP	regulation of circadian rhythm
+82	GO-BP	regulation of cyclin-dependent protein serine/threonine kinase activity
+83	GO-BP	regulation of metaphase plate congression
+84	GO-BP	regulation of microtubule-based process
+85	GO-BP	regulation of telomere maintenance
+86	GO-BP	regulation of translation
+87	GO-BP	regulation of ubiquitin-protein transferase activity
+88	GO-BP	response to ionizing radiation
+89	GO-BP	response to radiation
+90	GO-BP	somatic diversification of immunoglobulins
+91	GO-BP	spindle organization
+92	GO-BP	telomere maintenance via telomere lengthening
+93	GO-BP	transcription elongation-coupled chromatin remodeling
+94	GO-BP	transcription initiation-coupled chromatin remodeling
+95	GO-BP	tricarboxylic acid cycle
+96	Reactome	Processing of Capped Intron-Containing Pre-mRNA
+97	Reactome	mRNA 3'-end processing
+98	Reactome	mRNA Splicing
+99	Reactome	mRNA Splicing - Major Pathway
+100	Reactome	Activation of the pre-replicative complex
+101	Reactome	Cell Cycle Checkpoints
+102	Reactome	DNA Replication
+103	Reactome	DNA Replication Pre-Initiation
+104	Reactome	G1/S Transition
+105	Reactome	G2/M Checkpoints
+106	Reactome	G2/M Transition
+107	Reactome	M Phase
+108	Reactome	Mitotic Anaphase
+109	Reactome	Mitotic G1 phase and G1/S transition
+110	Reactome	Mitotic G2-G2/M phases
+111	Reactome	Mitotic Metaphase and Anaphase
+112	Reactome	S Phase
+113	Reactome	Separation of Sister Chromatids
+114	Reactome	Switching of origins to a post-replicative state
+115	Reactome	Synthesis of DNA
+116	Reactome	mRNA Polyadenylation
+117	Reactome	APC/C-mediated degradation of cell cycle proteins
+118	Reactome	Activation of ATR in response to replication stress
+119	Reactome	Assembly of the 9+0 primary cilium
+120	Reactome	Association of TriC/CCT with target proteins during biosynthesis
+121	Reactome	Chaperonin-mediated protein folding
+122	Reactome	Chromosome Maintenance
+123	Reactome	Cilium Assembly
+124	Reactome	Cooperation of Prefoldin and TriC/CCT  in actin and tubulin folding
+125	Reactome	Cyclin A:Cdk2-associated events at S phase entry
+126	Reactome	Cyclin E associated events during G1/S transition
+127	Reactome	DNA Damage Bypass
+128	Reactome	DNA Double-Strand Break Repair
+129	Reactome	DNA Repair
+130	Reactome	Dengue Virus Infection
+131	Reactome	Dengue Virus-Host Interactions
+132	Reactome	Extension of Telomeres
+133	Reactome	Folding of actin by CCT/TriC
+134	Reactome	Formation of tubulin folding intermediates by CCT/TriC
+135	Reactome	HDR through Homologous Recombination (HRR)
+136	Reactome	HDR through Homologous Recombination (HRR) or Single Strand Annealing (SSA)
+137	Reactome	Homology Directed Repair
+138	Reactome	Nucleotide biosynthesis
+139	Reactome	Orc1 removal from chromatin
+140	Reactome	Prefoldin mediated transfer of substrate  to CCT/TriC
+141	Reactome	Recognition of DNA damage by PCNA-containing replication complex
+142	Reactome	Regulation of APC/C activators between G1/S and early anaphase
+143	Reactome	Regulation of TP53 Activity
+144	Reactome	Regulation of mitotic cell cycle
+145	Reactome	The role of GTSE1 in G2/M progression after G2 checkpoint
+146	Reactome	Transcriptional Regulation by TP53
+147	Reactome	Transport of Mature Transcript to Cytoplasm
+148	Reactome	APC-Cdc20 mediated degradation of Nek2A
+149	Reactome	APC/C:Cdc20 mediated degradation of mitotic proteins
+150	Reactome	APC/C:Cdh1 mediated degradation of Cdc20 and other APC/C:Cdh1 targeted proteins in late mitosis/early G1
+151	Reactome	APC:Cdc20 mediated degradation of cell cycle proteins prior to satisfation of the cell cycle checkpoint
+152	Reactome	Aberrant regulation of mitotic G1/S transition in cancer due to RB1 defects
+153	Reactome	Activation of APC/C and APC/C:Cdc20 mediated degradation of mitotic proteins
+154	Reactome	Amplification  of signal from unattached  kinetochores via a MAD2  inhibitory signal
+155	Reactome	Amplification of signal from the kinetochores
+156	Reactome	Anchoring of the basal body to the plasma membrane
+157	Reactome	Cdc20:Phospho-APC/C mediated degradation of Cyclin A
+158	Reactome	Centrosome maturation
+159	Reactome	Condensation of Prometaphase Chromosomes
+160	Reactome	Cyclin A/B1/B2 associated events during G2/M transition
+161	Reactome	DNA strand elongation
+162	Reactome	Defective binding of RB1 mutants to E2F1,(E2F2, E2F3)
+163	Reactome	Dual incision in TC-NER
+164	Reactome	EML4 and NUDC in mitotic spindle formation
+165	Reactome	G0 and Early G1
+166	Reactome	G1/S-Specific Transcription
+167	Reactome	Gap-filling DNA repair synthesis and ligation in GG-NER
+168	Reactome	Gap-filling DNA repair synthesis and ligation in TC-NER
+169	Reactome	HIV Infection
+170	Reactome	HIV Life Cycle
+171	Reactome	Host Interactions of HIV factors
+172	Reactome	Initiation of Nuclear Envelope (NE) Reformation
+173	Reactome	Interactions of Rev with host cellular proteins
+174	Reactome	Kinesins
+175	Reactome	Lagging Strand Synthesis
+176	Reactome	Late Phase of HIV Life Cycle
+177	Reactome	Leading Strand Synthesis
+178	Reactome	Metabolism of non-coding RNA
+179	Reactome	Mitotic Prometaphase
+180	Reactome	Mitotic Prophase
+181	Reactome	Mitotic Spindle Checkpoint
+182	Reactome	NS1 Mediated Effects on Host Pathways
+183	Reactome	Nuclear Envelope (NE) Reassembly
+184	Reactome	Nuclear Envelope Breakdown
+185	Reactome	Nuclear import of Rev protein
+186	Reactome	PCNA-Dependent Long Patch Base Excision Repair
+187	Reactome	Polymerase switching
+188	Reactome	Processing of DNA double-strand break ends
+189	Reactome	Processive synthesis on the lagging strand
+190	Reactome	RHO GTPase Effectors
+191	Reactome	RHO GTPases Activate Formins
+192	Reactome	Recruitment of NuMA to mitotic centrosomes
+193	Reactome	Recruitment of mitotic centrosome proteins and complexes
+194	Reactome	Regulation of TP53 Activity through Phosphorylation
+195	Reactome	Removal of the Flap Intermediate
+196	Reactome	Resolution of Sister Chromatid Cohesion
+197	Reactome	SCF(Skp2)-mediated degradation of p27/p21
+198	Reactome	SCF-beta-TrCP mediated degradation of Emi1
+199	Reactome	SUMO E3 ligases SUMOylate target proteins
+200	Reactome	SUMOylation
+201	Reactome	SUMOylation of DNA damage response and repair proteins
+202	Reactome	SUMOylation of DNA replication proteins
+203	Reactome	TP53 Regulates Transcription of Genes Involved in G1 Cell Cycle Arrest
+204	Reactome	Telomere Maintenance
+205	Reactome	Termination of translesion DNA synthesis
+206	Reactome	Transcription of E2F targets under negative control by DREAM complex
+207	Reactome	Transcriptional Regulation by E2F6
+208	Reactome	Transport of Ribonucleoproteins into the Host Nucleus
+209	Reactome	Transport of the SLBP Dependant Mature mRNA
+210	Reactome	Transport of the SLBP independent Mature mRNA
+211	Reactome	Vpr-mediated nuclear import of PICs
+212	Reactome	p53-Dependent G1 DNA Damage Response
+213	Reactome	p53-Dependent G1/S DNA damage checkpoint
+214	Reactome	snRNP Assembly
+215	Reactome	tRNA processing in the nucleus
+216	Reactome	APC/C:Cdc20 mediated degradation of Securin
+217	Reactome	AUF1 (hnRNP D0) binds and destabilizes mRNA
+218	Reactome	AURKA Activation by TPX2
+219	Reactome	Aberrant regulation of mitotic cell cycle due to RB1 defects
+220	Reactome	Activation of NF-kappaB in B cells
+221	Reactome	Aerobic respiration and respiratory electron transport
+222	Reactome	Antimicrobial mechanism of IFN-stimulated genes
+223	Reactome	Assembly of the pre-replicative complex
+224	Reactome	Autodegradation of the E3 ubiquitin ligase COP1
+225	Reactome	CDK-mediated phosphorylation and removal of Cdc6
+226	Reactome	COPI-dependent Golgi-to-ER retrograde traffic
+227	Reactome	Chk1/Chk2(Cds1) mediated inactivation of Cyclin B:Cdk1 complex
+228	Reactome	Cyclin D associated events in G1
+229	Reactome	Dectin-1 mediated noncanonical NF-kB signaling
+230	Reactome	Defective HDR through Homologous Recombination Repair (HRR) due to PALB2 loss of BRCA1 binding function
+231	Reactome	Defective HDR through Homologous Recombination Repair (HRR) due to PALB2 loss of BRCA2/RAD51/RAD51C binding function
+232	Reactome	Defective TPR may confer susceptibility towards thyroid papillary carcinoma (TPC)
+233	Reactome	Defective homologous recombination repair (HRR) due to BRCA1 loss of function
+234	Reactome	Defective homologous recombination repair (HRR) due to BRCA2 loss of function
+235	Reactome	Defective homologous recombination repair (HRR) due to PALB2 loss of function
+236	Reactome	Degradation of AXIN
+237	Reactome	Degradation of CDH1
+238	Reactome	Degradation of CRY and PER proteins
+239	Reactome	Degradation of DVL
+240	Reactome	Degradation of GLI1 by the proteasome
+241	Reactome	Degradation of GLI2 by the proteasome
+242	Reactome	Depolymerization of the Nuclear Lamina
+243	Reactome	Deposition of new CENPA-containing nucleosomes at the centromere
+244	Reactome	Diseases of DNA Double-Strand Break Repair
+245	Reactome	Diseases of DNA repair
+246	Reactome	Diseases of mitotic cell cycle
+247	Reactome	Diseases of programmed cell death
+248	Reactome	Dual Incision in GG-NER
+249	Reactome	E2F mediated regulation of DNA replication
+250	Reactome	Export of Viral Ribonucleoproteins from Nucleus
+251	Reactome	FBXL7 down-regulates AURKA during mitotic entry and in early mitosis
+252	Reactome	Factors involved in megakaryocyte development and platelet production
+253	Reactome	G1 Phase
+254	Reactome	G1/S DNA Damage Checkpoints
+255	Reactome	G2/M DNA damage checkpoint
+256	Reactome	GLI3 is processed to GLI3R by the proteasome
+257	Reactome	GSK3B and BTRC:CUL1-mediated-degradation of NFE2L2
+258	Reactome	GSK3B-mediated proteasomal degradation of PD-L1(CD274)
+259	Reactome	Golgi Cisternae Pericentriolar Stack Reorganization
+260	Reactome	Golgi-to-ER retrograde transport
+261	Reactome	HDR through Single Strand Annealing (SSA)
+262	Reactome	HSP90 chaperone cycle for steroid hormone receptors (SHR) in the presence of ligand
+263	Reactome	Hh mutants abrogate ligand secretion
+264	Reactome	Hh mutants are degraded by ERAD
+265	Reactome	Homologous DNA Pairing and Strand Exchange
+266	Reactome	IP3 and IP4 transport between cytosol and nucleus
+267	Reactome	IP6 and IP7 transport between cytosol and nucleus
+268	Reactome	IPs transport between nucleus and cytosol
+269	Reactome	Impaired BRCA2 binding to PALB2
+270	Reactome	Impaired BRCA2 binding to RAD51
+271	Reactome	Inactivation of APC/C via direct inhibition of the APC/C complex
+272	Reactome	Inhibition of replication initiation of damaged DNA by RB1/E2F1
+273	Reactome	Inhibition of the proteolytic activity of APC/C required for the onset of anaphase by mitotic spindle checkpoint components
+274	Reactome	Interactions of Vpr with host cellular proteins
+275	Reactome	Loss of Nlp from mitotic centrosomes
+276	Reactome	Loss of proteins required for interphase microtubule organization from the centrosome
+277	Reactome	MHC class II antigen presentation
+278	Reactome	Major pathway of rRNA processing in the nucleolus and cytosol
+279	Reactome	Metabolism of nucleotides
+280	Reactome	Metabolism of polyamines
+281	Reactome	Mismatch Repair
+282	Reactome	Mismatch repair (MMR) directed by MSH2:MSH6 (MutSalpha)
+283	Reactome	Mitochondrial ribosome-associated quality control
+284	Reactome	Mitochondrial translation
+285	Reactome	Mitochondrial translation elongation
+286	Reactome	Mitochondrial translation initiation
+287	Reactome	Mitochondrial translation termination
+288	Reactome	Mitotic Telophase/Cytokinesis
+289	Reactome	NEP/NS2 Interacts with the Cellular Export Machinery
+290	Reactome	NIK-->noncanonical NF-kB signaling
+291	Reactome	Negative regulation of NOTCH4 signaling
+292	Reactome	Nuclear Pore Complex (NPC) Disassembly
+293	Reactome	Nucleosome assembly
+294	Reactome	Nucleotide Excision Repair
+295	Reactome	Organelle biogenesis and maintenance
+296	Reactome	Polo-like kinase mediated events
+297	Reactome	Polymerase switching on the C-strand of the telomere
+298	Reactome	Postmitotic nuclear pore complex (NPC) reformation
+299	Reactome	Presynaptic phase of homologous DNA pairing and strand exchange
+300	Reactome	Protein folding
+301	Reactome	Purine ribonucleoside monophosphate biosynthesis
+302	Reactome	Regulation of Apoptosis
+303	Reactome	Regulation of CDH1 Function
+304	Reactome	Regulation of Glucokinase by Glucokinase Regulatory Protein
+305	Reactome	Regulation of PLK1 Activity at G2/M Transition
+306	Reactome	Regulation of RUNX2 expression and activity
+307	Reactome	Regulation of RUNX3 expression and activity
+308	Reactome	Regulation of activated PAK-2p34 by proteasome mediated degradation
+309	Reactome	Regulation of mRNA stability by proteins that bind AU-rich elements
+310	Reactome	Regulation of ornithine decarboxylase (ODC)
+311	Reactome	Resolution of AP sites via the multiple-nucleotide patch replacement pathway
+312	Reactome	Resolution of Abasic Sites (AP sites)
+313	Reactome	Resolution of D-Loop Structures
+314	Reactome	Resolution of D-loop Structures through Holliday Junction Intermediates
+315	Reactome	Resolution of D-loop Structures through Synthesis-Dependent Strand Annealing (SDSA)
+316	Reactome	Rev-mediated nuclear export of HIV RNA
+317	Reactome	SPOP-mediated proteasomal degradation of PD-L1(CD274)
+318	Reactome	SUMOylation of RNA binding proteins
+319	Reactome	SUMOylation of SUMOylation proteins
+320	Reactome	Signaling by Hedgehog
+321	Reactome	Signaling by NOTCH4
+322	Reactome	Stabilization of p53
+323	Reactome	TP53 Regulates Transcription of Cell Cycle Genes
+324	Reactome	TP53 Regulates Transcription of Genes Involved in G2 Cell Cycle Arrest
+325	Reactome	Telomere C-strand (Lagging Strand) Synthesis
+326	Reactome	Transcription of E2F targets under negative control by p107 (RBL1) and p130 (RBL2) in complex with HDAC1
+327	Reactome	Transcription-Coupled Nucleotide Excision Repair (TC-NER)
+328	Reactome	Translation
+329	Reactome	Translesion synthesis by Y family DNA polymerases bypasses lesions on DNA template
+330	Reactome	Transport of Mature mRNA Derived from an Intronless Transcript
+331	Reactome	Transport of Mature mRNA derived from an Intron-Containing Transcript
+332	Reactome	Transport of Mature mRNAs Derived from Intronless Transcripts
+333	Reactome	Ubiquitin-Mediated Degradation of Phosphorylated Cdc25A
+334	Reactome	Ubiquitin-dependent degradation of Cyclin D
+335	Reactome	Vif-mediated degradation of APOBEC3G
+336	Reactome	Viral Messenger RNA Synthesis
+337	Reactome	Vpu mediated degradation of CD4
+338	Reactome	mRNA Splicing - Minor Pathway
+339	Reactome	p53-Independent G1/S DNA Damage Checkpoint
+340	Reactome	rRNA modification in the nucleus and cytosol
+341	Reactome	rRNA processing
+342	Reactome	rRNA processing in the nucleus and cytosol
+343	Reactome	tRNA processing
+344	Reactome	ABC transporter disorders
+345	Reactome	ABC-family protein mediated transport
+346	Reactome	AMPK-induced ERAD and lysosome mediated degradation of PD-L1(CD274)
+347	Reactome	APC/C:Cdc20 mediated degradation of Cyclin B
+348	Reactome	Activation of STAT3 by cadherin engagement
+349	Reactome	Activation of the mRNA upon binding of the cap-binding complex and eIFs, and subsequent binding to 43S
+350	Reactome	Apoptosis
+351	Reactome	Asymmetric localization of PCP proteins
+352	Reactome	Autodegradation of Cdh1 by Cdh1:APC/C
+353	Reactome	BBSome-mediated cargo-targeting to cilium
+354	Reactome	Base Excision Repair
+355	Reactome	CHD1 and CHD2 subfamily
+356	Reactome	Cap-dependent Translation Initiation
+357	Reactome	Cellular response to heat stress
+358	Reactome	Cellular response to hypoxia
+359	Reactome	Chromatin organization
+360	Reactome	Condensation of Prophase Chromosomes
+361	Reactome	Cooperation of PDCL (PhLP1) and TRiC/CCT in G-protein beta folding
+362	Reactome	Cross-presentation of soluble exogenous antigens (endosomes)
+363	Reactome	Cytosolic tRNA aminoacylation
+364	Reactome	Defective CFTR causes cystic fibrosis
+365	Reactome	Defective Intrinsic Pathway for Apoptosis
+366	Reactome	Defective pyroptosis
+367	Reactome	Dengue Virus Genome Translation and Replication
+368	Reactome	Deregulated CDK5 triggers multiple neurodegenerative pathways in Alzheimer's disease models
+369	Reactome	Downstream signaling events of B Cell Receptor (BCR)
+370	Reactome	ER-Phagosome pathway
+371	Reactome	Establishment of Sister Chromatid Cohesion
+372	Reactome	Eukaryotic Translation Initiation
+373	Reactome	FCERI mediated NF-kB activation
+374	Reactome	Formation of paraxial mesoderm
+375	Reactome	Formation of the ternary complex, and subsequently, the 43S complex
+376	Reactome	GTP hydrolysis and joining of the 60S ribosomal subunit
+377	Reactome	Global Genome Nucleotide Excision Repair (GG-NER)
+378	Reactome	Glucose metabolism
+379	Reactome	Glycolysis
+380	Reactome	HCMV Early Events
+381	Reactome	HCMV Infection
+382	Reactome	HDR through MMEJ (alt-NHEJ)
+383	Reactome	HSF1 activation
+384	Reactome	Hedgehog 'off' state
+385	Reactome	Hedgehog 'on' state
+386	Reactome	Hedgehog ligand biogenesis
+387	Reactome	ISG15 antiviral mechanism
+388	Reactome	Intra-Golgi and retrograde Golgi-to-ER traffic
+389	Reactome	L13a-mediated translational silencing of Ceruloplasmin expression
+390	Reactome	MASTL Facilitates Mitotic Progression
+391	Reactome	Maturation of DENV proteins
+392	Reactome	Meiosis
+393	Reactome	Meiotic recombination
+394	Reactome	Metabolism of amino acids and derivatives
+395	Reactome	Mismatch repair (MMR) directed by MSH2:MSH3 (MutSbeta)
+396	Reactome	Mitochondrial calcium ion transport
+397	Reactome	Mitochondrial protein degradation
+398	Reactome	Mitochondrial protein import
+399	Reactome	Mitochondrial unfolded protein response (UPRmt)
+400	Reactome	Neurodegenerative Diseases
+401	Reactome	Nonhomologous End-Joining (NHEJ)
+402	Reactome	Nuclear events mediated by NFE2L2
+403	Reactome	Oxygen-dependent proline hydroxylation of Hypoxia-inducible Factor Alpha
+404	Reactome	PCP/CE pathway
+405	Reactome	PKR-mediated signaling
+406	Reactome	Phosphorylation of the APC/C
+407	Reactome	Processing of Capped Intronless Pre-mRNA
+408	Reactome	Processive synthesis on the C-strand of the telomere
+409	Reactome	Programmed Cell Death
+410	Reactome	Proteasome assembly
+411	Reactome	Pyruvate metabolism
+412	Reactome	RAS processing
+413	Reactome	RHOBTB2 GTPase cycle
+414	Reactome	RNA Polymerase II Transcription Termination
+415	Reactome	Regulation of HSF1-mediated heat shock response
+416	Reactome	Regulation of PD-L1(CD274) Post-translational modification
+417	Reactome	Regulation of PTEN stability and activity
+418	Reactome	Regulation of RAS by GAPs
+419	Reactome	Regulation of TP53 Activity through Methylation
+420	Reactome	Regulation of TP53 Degradation
+421	Reactome	Regulation of TP53 Expression and Degradation
+422	Reactome	Regulation of expression of SLITs and ROBOs
+423	Reactome	Regulation of pyruvate metabolism
+424	Reactome	Removal of the Flap Intermediate from the C-strand
+425	Reactome	Reproduction
+426	Reactome	Respiratory electron transport
+427	Reactome	Ribosomal scanning and start codon recognition
+428	Reactome	Ribosome Quality Control (RQC) complex extracts and degrades nascent peptide
+429	Reactome	Ribosome-associated quality control
+430	Reactome	SARS-CoV-2 modulates host translation machinery
+431	Reactome	SLBP Dependent Processing of Replication-Dependent Histone Pre-mRNAs
+432	Reactome	STAT3 nuclear events downstream of ALK signaling
+433	Reactome	SUMOylation of ubiquitinylation proteins
+434	Reactome	Selenoamino acid metabolism
+435	Reactome	Signaling by ROBO receptors
+436	Reactome	Somitogenesis
+437	Reactome	TP53 Regulates Transcription of DNA Repair Genes
+438	Reactome	Translation initiation complex formation
+439	Reactome	Translesion synthesis by POLI
+440	Reactome	Translesion synthesis by POLK
+441	Reactome	Translesion synthesis by REV1
+442	Reactome	UCH proteinases
+443	Reactome	Unwinding of DNA
+444	Reactome	tRNA Aminoacylation
