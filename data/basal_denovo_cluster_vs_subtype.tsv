@@ -1,0 +1,3 @@
+test	p	method	FDR
+TCGA: cluster de novo vs Lehmann/Bareche	0.0012998700129987	Fisher (simulado)	0.0012998700129987
+METABRIC: cluster de novo vs IntClust	9.99900009999e-05	Fisher (simulado)	0.0001999800019998
