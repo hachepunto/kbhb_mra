@@ -13,6 +13,41 @@ data/tcga_basal_mrs.rds
 data/mtbrc_basal_mrs.rds
 data/tcga_de_results.rds
 data/mtbrc_de_results.rds
+
+# Same regenerable intermediates as above, for the LumA/LumB/Her2 extension
+# (Task 2): per-subtype expression/normal matrices, ARACNe-AP inputs, msVIPER
+# result objects, and the raw ARACNe-AP bootstrap output directories
+# (~500MB+ each, 100 bootstrap files per network — all regenerable via
+# luminal_her2_pre_networks.R + run_aracne_ap_luminal_her2.sh +
+# luminal_her2_mra_kbhb.R). Consolidated networks
+# (data/{tcga,mtbrc}_{LumA,LumB,Her2}_network.txt) and the final comparison
+# tables (data/{luma,lumb,her2}_mrs_comparison.tsv,
+# data/kbhb_tmr_subtype_comparison.tsv) ARE tracked, same policy as Basal-like.
+data/tcga_LumA_expr.rds
+data/tcga_LumA_normal_expr.rds
+data/tcga_LumA_matrix.txt
+data/tcga_LumA_mrs.rds
+data/mtbrc_LumA_expr.rds
+data/mtbrc_LumA_normal_expr.rds
+data/mtbrc_LumA_matrix.txt
+data/mtbrc_LumA_mrs.rds
+data/tcga_LumB_expr.rds
+data/tcga_LumB_normal_expr.rds
+data/tcga_LumB_matrix.txt
+data/tcga_LumB_mrs.rds
+data/mtbrc_LumB_expr.rds
+data/mtbrc_LumB_normal_expr.rds
+data/mtbrc_LumB_matrix.txt
+data/mtbrc_LumB_mrs.rds
+data/tcga_Her2_expr.rds
+data/tcga_Her2_normal_expr.rds
+data/tcga_Her2_matrix.txt
+data/tcga_Her2_mrs.rds
+data/mtbrc_Her2_expr.rds
+data/mtbrc_Her2_normal_expr.rds
+data/mtbrc_Her2_matrix.txt
+data/mtbrc_Her2_mrs.rds
+data/*_aracne_ap_output/
 data/kbhb_metaviper_activity.rds
 data/kbhb_geneset.rds
 data/kbhb_mrs_comparison.rds
@@ -34,6 +69,32 @@ figures/.DS_Store
 
 extra_data/
 
+# Local symlinks to raw/shared data living outside the repo (see ../Kbhb/).
+# Machine-specific shortcuts, not portable — never track.
+/GDCdata
+/brca_metabric
+/Huang et al. 2021 Sci Adv
+
+# Draft figures produced directly by the scripts (unnumbered names). The
+# final numbered Figure*.pdf/FigureS*.pdf under figures/ are curated copies
+# of these for the manuscript and ARE tracked.
+figures/fig1_nes_scatter.pdf
+figures/fig2_lollipop_metanes.pdf
+figures/fig3_metaviper_heatmap.pdf
+figures/panel_kbhb_mra.pdf
+figures/fig_ora_tmrs.pdf
+figures/fig_supp_combined.pdf
+figures/fig_de_volcano_tcga.pdf
+figures/fig_de_volcano_mtbrc.pdf
+figures/fig_de_heatmap_tcga.pdf
+figures/fig_de_heatmap_mtbrc.pdf
+figures/fig_kbhb_scatter.pdf
+figures/fig_kbhb_circlepack.pdf
+figures/fig_supp_de.pdf
+figures/fig_kbhb_concordance.pdf
+figures/fig_circos_tmr_kbhb.pdf
+figures/fig_sankey_tmr_kbhb.pdf
+
 # R session artifacts
 .Rhistory
 .RData
@@ -49,11 +110,17 @@ __pycache__/
 # macOS
 .DS_Store
 
+# TCGAbiolinks internal debug cache dropped in cwd during GDCprepare(Clinical)
+/df.rds
+/results.rds
+
 # Project notes / docs (not scripts)
 *.html
 session_summary.md
 methods_kbhb_mra.md
 kbhb_mra_project_summary.md
+tareas_clauco_major_revision.md
+resultado_tareas_clauco.md
 
 # Hive plot prototype (superseded by circos + sankey)
 hiveplot_tmr_kbhb.py

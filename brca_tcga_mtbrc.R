@@ -103,13 +103,17 @@ message("data/tcga_brca_rnaseq_se.rds guardado")
 
 # ── 2.1  Descarga desde cBioPortal ──────────────────────────
 
-download.file(
-  url      = "https://datahub.assets.cbioportal.org/brca_metabric.tar.gz",
-  destfile = "brca_metabric.tar.gz",
-  mode     = "wb"
-)
-untar("brca_metabric.tar.gz", exdir = ".")
-message("METABRIC extraído en brca_metabric/")
+if (!file.exists("brca_metabric/data_clinical_patient.txt")) {
+  download.file(
+    url      = "https://datahub.assets.cbioportal.org/brca_metabric.tar.gz",
+    destfile = "brca_metabric.tar.gz",
+    mode     = "wb"
+  )
+  untar("brca_metabric.tar.gz", exdir = ".")
+  message("METABRIC extraído en brca_metabric/")
+} else {
+  message("brca_metabric/ already present — skipping download")
+}
 
 
 # ── 2.2  Clínica ─────────────────────────────────────────────
