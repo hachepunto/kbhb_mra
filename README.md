@@ -99,7 +99,8 @@ script that generates the underlying plot/table is noted alongside.
 | `figures/Figure2.pdf` | Lollipop plot, meta-analysis NES | `compare_kbhb_mrs.R` |
 | `figures/Figure3.pdf` | ORA dotplot of TMR regulons (GO-BP + Reactome) | `compare_kbhb_mrs.R` |
 | `figures/Figure4.pdf` | Circos plot: TMR → DE Kbhb genes (ARACNe support) | `circos_tmr_kbhb.R` |
-| `figures/Figure5.pdf` | Graphical summary of the BHB–Kbhb–TMR axis | manual |
+| `figures/Figure5.pdf` | Graded specificity of the Kbhb TMR panel across PAM50 subtypes (dot plot, 3 tiers: broad / partial / Basal-like-exclusive) | `luminal_her2_mra_kbhb.R` |
+| `figures/Figure6.pdf` | Graphical summary of the BHB–Kbhb–TMR axis | manual |
 | `figures/FigureS1.pdf` | msVIPER results and shadow-pair regulatory hierarchy per cohort | `mra_kbhb.R` |
 | `figures/FigureS2.pdf` | DE volcano plots and heatmaps, TCGA and METABRIC | `de_kbhb.R` |
 | `figures/FigureS3.pdf` | Kaplan-Meier survival, de novo TMR clusters: (A) TCGA, (B) METABRIC | `basal_subtype_clinical.R` |

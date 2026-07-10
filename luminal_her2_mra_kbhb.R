@@ -162,34 +162,79 @@ write.table(comparison_full, "data/kbhb_tmr_subtype_comparison.tsv",
 message("data/kbhb_tmr_subtype_comparison.tsv saved")
 
 # ============================================================
-# FIGURE: meta-NES of the significant Kbhb TMRs across the 4 subtypes
-# (similar to the Fig 2 lollipop, but comparing subtypes instead of cohorts)
+# FIGURE: graded specificity of the Kbhb TMR panel across PAM50 subtypes
+# Dot plot (not a plain heatmap / bar chart) — three cell states, and rows
+# grouped into 3 specificity tiers by facet (see Results 2.4):
+#   Tier 1 - broad/pan-active   : significant in >= 3 of 4 subtypes
+#   Tier 2 - partially specific : significant in 2 of 4 subtypes
+#   Tier 3 - Basal-like-exclusive: significant in 1 of 4 subtypes (Basal-like only)
+# Tiers are derived from the data itself (not hardcoded), so the figure
+# stays reproducible if the upstream msVIPER/meta-analysis results change.
 # ============================================================
 
-comparison_full$sig <- ifelse(!is.na(comparison_full$FDR_meta) & comparison_full$FDR_meta < 0.05,
-                               "FDR < 0.05", "n.s. / not evaluable")
+comparison_full$status <- factor(
+  ifelse(is.na(comparison_full$NES_meta), "Not evaluable",
+         ifelse(comparison_full$FDR_meta < 0.05, "Significant (FDR < 0.05)", "Not significant")),
+  levels = c("Significant (FDR < 0.05)", "Not significant", "Not evaluable")
+)
 
-fig_compare <- ggplot(comparison_full,
-                       aes(x = subtype, y = NES_meta, fill = sig)) +
-  geom_col(width = 0.7, na.rm = TRUE) +
-  geom_hline(yintercept = 0, color = "grey40", linewidth = 0.3) +
-  facet_wrap(~ regulator, nrow = 2) +
-  scale_fill_manual(values = c("FDR < 0.05" = "#C0392B", "n.s. / not evaluable" = "grey70"),
-                     name = NULL) +
-  labs(
-    title    = "Status of the Kbhb axis (CENPA/FOXM1 + TMRs) by PAM50 subtype",
-    subtitle = "meta-NES (Stouffer, TCGA + METABRIC) — Basal-like vs Luminal A/B vs HER2-enriched",
-    x = NULL, y = "meta-NES (Stouffer)"
+# Fill only carries the meta-NES value for significant cells; not-significant
+# and not-evaluable cells fall back to na.value (flat grey), so full color
+# saturation is reserved for the cells that actually support the claim.
+comparison_full$fill_value <- ifelse(comparison_full$status == "Significant (FDR < 0.05)",
+                                      comparison_full$NES_meta, NA)
+
+n_sig <- tapply(comparison_full$status == "Significant (FDR < 0.05)",
+                 comparison_full$regulator, sum)
+tier_lab <- c(
+  "Broad\n(≥ 3/4 subtypes)",
+  "Partial\n(2/4 subtypes)",
+  "Basal-like exclusive\n(1/4 subtypes)"
+)
+tier_of <- ifelse(n_sig[as.character(comparison_full$regulator)] >= 3, tier_lab[1],
+            ifelse(n_sig[as.character(comparison_full$regulator)] == 2, tier_lab[2],
+                   tier_lab[3]))
+comparison_full$tier <- factor(tier_of, levels = tier_lab)
+
+# Within each tier, order regulators by Basal-like meta-NES (descending),
+# consistent with the Fig. 1B / Fig. 2 ranking; reversed because ggplot
+# plots the first factor level at the bottom of the y-axis.
+basal_rank <- basal_df$regulator[order(-basal_df$NES_meta)]
+basal_rank <- basal_rank[basal_rank %in% tmrs_basal]
+comparison_full$regulator <- factor(comparison_full$regulator, levels = rev(basal_rank))
+
+cat("\n=== TMR tiers (graded specificity across PAM50 subtypes, n_sig/4) ===\n")
+print(data.frame(regulator = names(n_sig), n_sig = as.integer(n_sig))[order(-n_sig), ], row.names = FALSE)
+
+fig_compare <- ggplot(comparison_full, aes(x = subtype, y = regulator)) +
+  geom_point(aes(shape = status, size = status, colour = status, stroke = status,
+                  fill = fill_value)) +
+  facet_grid(tier ~ ., scales = "free_y", space = "free_y") +
+  scale_fill_gradient2(
+    low = "#2980B9", mid = "white", high = "#C0392B", midpoint = 0,
+    na.value = "grey85", name = "meta-NES\n(Stouffer)"
   ) +
+  scale_shape_manual(name = "Status", values = c(
+    "Significant (FDR < 0.05)" = 21, "Not significant" = 21, "Not evaluable" = 4)) +
+  scale_size_manual(name = "Status", values = c(
+    "Significant (FDR < 0.05)" = 8, "Not significant" = 3.5, "Not evaluable" = 4.5)) +
+  scale_colour_manual(name = "Status", values = c(
+    "Significant (FDR < 0.05)" = "black", "Not significant" = "grey55", "Not evaluable" = "grey45")) +
+  scale_discrete_manual(aesthetics = "stroke", name = "Status", values = c(
+    "Significant (FDR < 0.05)" = 1.3, "Not significant" = 0.6, "Not evaluable" = 1.3)) +
+  labs(x = NULL, y = NULL) +
   theme_bw(base_size = 11) +
   theme(
-    panel.grid.minor = element_blank(),
-    axis.text.x      = element_text(angle = 30, hjust = 1),
-    legend.position  = "bottom",
-    strip.text       = element_text(face = "bold")
+    panel.grid        = element_line(color = "grey93", linewidth = 0.3),
+    axis.text.x       = element_text(face = "bold"),
+    axis.text.y       = element_text(face = "italic"),
+    strip.text.y      = element_text(face = "bold", angle = 0, hjust = 0),
+    strip.background  = element_rect(fill = "grey92", color = NA),
+    panel.spacing.y   = unit(0.6, "lines"),
+    legend.position   = "right"
   )
 
-ggsave("figures/kbhb_tmr_subtype_comparison.pdf", fig_compare, width = 10, height = 7)
-message("figures/kbhb_tmr_subtype_comparison.pdf saved")
+ggsave("figures/Figure5.pdf", fig_compare, width = 9, height = 6.5)
+message("figures/Figure5.pdf saved")
 
 message("\n====  MRA + META-ANALYSIS COMPLETE (LumA / LumB / Her2)  ====")
