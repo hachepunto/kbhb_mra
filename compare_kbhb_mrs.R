@@ -180,6 +180,9 @@ fig1 <- ggplot(df, aes(x = NES_TCGA, y = NES_MTBRC,
 ggsave("figures/fig1_nes_scatter.pdf", fig1, width = 7, height = 6)
 message("figures/fig1_nes_scatter.pdf saved")
 
+saveRDS(fig1, "data/fig1_nes_scatter.rds")
+message("data/fig1_nes_scatter.rds saved")
+
 
 # ── FIG 2: Lollipop top MRs by meta-NES ─────────────────────
 
@@ -222,6 +225,9 @@ fig2 <- ggplot(df_lol, aes(x = regulator, y = NES_meta)) +
 
 ggsave("figures/fig2_lollipop_metanes.pdf", fig2, width = 8, height = 7)
 message("figures/fig2_lollipop_metanes.pdf saved")
+
+saveRDS(fig2, "data/fig2_lollipop_metanes.rds")
+message("data/fig2_lollipop_metanes.rds saved")
 
 
 # ── FIG 3: VIPER activity heatmap — top MRs per sample ───────

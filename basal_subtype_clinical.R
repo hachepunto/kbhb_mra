@@ -4,6 +4,7 @@ library(dplyr)
 library(pheatmap)
 library(ggplot2)
 library(survminer)
+library(patchwork)
 
 if (!interactive()) setwd(normalizePath("."))
 dir.create("data",    showWarnings = FALSE)
@@ -301,18 +302,30 @@ message("data/basal_denovo_cluster_survival.tsv saved")
 fit_tcga  <- survfit(Surv(time, status) ~ cluster, data = km_tcga_df)
 fit_mtbrc <- survfit(Surv(time, status) ~ cluster, data = km_mtbrc_df)
 
-p_km_tcga <- ggsurvplot(fit_tcga, data = km_tcga_df, pval = TRUE, risk.table = TRUE,
-                         title = "TCGA Basal — de novo clusters (significant TMRs)",
-                         xlab = "Months" )
-p_km_mtbrc <- ggsurvplot(fit_mtbrc, data = km_mtbrc_df, pval = TRUE, risk.table = TRUE,
-                          title = "METABRIC Basal — de novo clusters (significant TMRs)",
+
+# ggsurvplot's default pval formatting varies decimal places by significant
+# digits (e.g. "0.093" vs "0.81"); pass the log-rank p-value already computed
+# above, fixed to 2 decimals, so both panels format consistently.
+pval_label <- function(p) paste0("p = ", sprintf("%.2f", p))
+
+p_km_tcga <- ggsurvplot(fit_tcga, data = km_tcga_df,
+                         pval = pval_label(logrank_p(logrank_tcga)), risk.table = TRUE,
+                         xlab = "Months")
+p_km_mtbrc <- ggsurvplot(fit_mtbrc, data = km_mtbrc_df,
+                          pval = pval_label(logrank_p(logrank_mtbrc)), risk.table = TRUE,
                           xlab = "Months")
 
-pdf("figures/km_basal_denovo_clusters.pdf", width = 8, height = 8, onefile = TRUE)
-print(p_km_tcga)
-print(p_km_mtbrc)
-dev.off()
-message("figures/km_basal_denovo_clusters.pdf saved")
+# Single combined figure: TCGA (A, left) | METABRIC (B, right), each panel
+# with its survival curve stacked over its risk table. No panel-level titles
+# embedded in the image — captions belong in the manuscript figure legend.
+panel_tcga  <- wrap_elements(full = p_km_tcga$plot  / p_km_tcga$table  + plot_layout(heights = c(3, 1)))
+panel_mtbrc <- wrap_elements(full = p_km_mtbrc$plot / p_km_mtbrc$table + plot_layout(heights = c(3, 1)))
+
+km_combined <- (panel_tcga | panel_mtbrc) +
+  plot_annotation(tag_levels = "A")
+
+ggsave("figures/FigureS3.pdf", km_combined, width = 14, height = 7)
+message("figures/FigureS3.pdf saved")
 
 # ============================================================
 # SECTION: updated heatmap (Fig 1C) with dual annotation
@@ -324,12 +337,15 @@ established[tcga_ids]  <- tcga_subtype_named[tcga_ids]
 established[mtbrc_ids] <- paste0("IntClust_", mtbrc_intclust_named[mtbrc_ids])
 
 col_anno <- data.frame(
-  Cohort           = cohort_of,
-  Established_subtype = established,
-  De_novo_cluster  = cl_named[colnames(meta_act)],
-  row.names        = colnames(meta_act)
+  Cohort                 = cohort_of,
+  `Established subtype`  = established,
+  `De novo cluster`      = cl_named[colnames(meta_act)],
+  row.names              = colnames(meta_act),
+  check.names            = FALSE
 )
 
+# No embedded title: panel/figure captions belong in the manuscript
+# figure legend, not baked into the image.
 ph <- pheatmap(
   meta_act[sig_tfs, ],
   color                    = colorRampPalette(c("#2980B9","white","#C0392B"))(100),
@@ -338,12 +354,31 @@ ph <- pheatmap(
   cluster_rows             = TRUE,
   show_colnames            = FALSE,
   annotation_col           = col_anno,
-  main                     = "Updated Fig. 1C — significant Kbhb TMRs, established subtype + de novo cluster",
   silent                   = TRUE
 )
-pdf("figures/fig1c_subtype_annotated.pdf", width = 14, height = 6)
-grid::grid.draw(ph$gtable)
-dev.off()
-message("figures/fig1c_subtype_annotated.pdf saved")
+
+# ============================================================
+# SECTION: assemble Figure 1 (submission) — panels A/B built in
+# compare_kbhb_mrs.R (NES concordance scatter, meta-NES lollipop),
+# reloaded here, combined with the updated panel C above (7 significant
+# Kbhb TMRs, established subtype + de novo cluster annotation).
+# ============================================================
+
+fig1 <- readRDS("data/fig1_nes_scatter.rds")
+fig2 <- readRDS("data/fig2_lollipop_metanes.rds")
+panel_c <- patchwork::wrap_elements(full = ph$gtable)
+
+figure1 <- (fig1 | fig2) / panel_c +
+  plot_layout(heights = c(1, 1.3)) +
+  plot_annotation(
+    caption    = "Huang et al. 2021 gene set | ARACNe-AP + msVIPER | TCGA + METABRIC",
+    tag_levels = "A",
+    theme      = theme(
+      plot.tag = element_text(face = "bold", size = 16)
+    )
+  )
+
+ggsave("figures/Figure1.pdf", figure1, width = 16, height = 14)
+message("figures/Figure1.pdf saved")
 
 message("\n====  TASK 1 COMPLETE  ====")
