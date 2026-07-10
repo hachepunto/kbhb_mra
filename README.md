@@ -1,5 +1,7 @@
 # kbhb_mra
 
+[![DOI](https://zenodo.org/badge/1266709469.svg)](https://doi.org/10.5281/zenodo.20768838)
+
 **Master Regulators of the Kbhb Transcriptional Program in Basal Breast Cancer**
 
 Computational pipeline to identify and characterize transcriptional master regulators (TMRs) of the β-hydroxybutyrylation (Kbhb) proteome in PAM50 Basal-like breast cancer, using two independent patient cohorts (TCGA-BRCA and METABRIC).
@@ -134,6 +136,8 @@ excluded and are regenerable from the scripts.
 ## Citation
 
 Manuscript in preparation — IJMS (MDPI).
+
+Code/repository: [10.5281/zenodo.20768838](https://doi.org/10.5281/zenodo.20768838)
 
 Kbhb proteome: Huang et al. (2021) *Sci Adv* 7:eabe2771  
 MRA framework: Alvarez et al. (2016) *Nat Genet* 48:838  
