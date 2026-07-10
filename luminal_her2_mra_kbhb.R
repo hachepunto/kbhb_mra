@@ -157,9 +157,9 @@ comparison_full <- comparison_full[order(comparison_full$regulator, comparison_f
 cat("\n=== COMPARISON TABLE meta-NES: Basal-like vs LumA vs LumB vs HER2 ===\n")
 print(comparison_full, row.names = FALSE)
 
-write.table(comparison_full, "data/kbhb_tmr_subtype_comparison.tsv",
+write.table(comparison_full, "data/Supplementary_TableS3_meta_NES_subtypes.tsv",
             sep = "\t", quote = FALSE, row.names = FALSE, na = "NA")
-message("data/kbhb_tmr_subtype_comparison.tsv saved")
+message("data/Supplementary_TableS3_meta_NES_subtypes.tsv saved")
 
 # ============================================================
 # FIGURE: graded specificity of the Kbhb TMR panel across PAM50 subtypes
