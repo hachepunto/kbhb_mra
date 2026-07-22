@@ -75,6 +75,11 @@ extra_data/
 /brca_metabric
 /Huang et al. 2021 Sci Adv
 
+# Raw TCGA Nature 2012 clinical release (cBioPortal brca_tcga_pub), used only
+# by figure1_panel_c.R for the PAM50 heatmap track color mapping. Third-party
+# data, regenerable by re-running that script (auto-downloads if missing).
+/brca_tcga_pub
+
 # Draft figures produced directly by the scripts (unnumbered names). The
 # final numbered Figure*.pdf/FigureS*.pdf under figures/ are curated copies
 # of these for the manuscript and ARE tracked.
@@ -113,6 +118,7 @@ __pycache__/
 # TCGAbiolinks internal debug cache dropped in cwd during GDCprepare(Clinical)
 /df.rds
 /results.rds
+/MANIFEST.txt
 
 # Project notes / docs (not scripts)
 *.html

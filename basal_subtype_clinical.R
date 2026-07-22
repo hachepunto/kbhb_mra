@@ -1,7 +1,6 @@
 library(SummarizedExperiment)
 library(survival)
 library(dplyr)
-library(pheatmap)
 library(ggplot2)
 library(survminer)
 library(patchwork)
@@ -327,58 +326,7 @@ km_combined <- (panel_tcga | panel_mtbrc) +
 ggsave("figures/FigureS3.pdf", km_combined, width = 14, height = 7)
 message("figures/FigureS3.pdf saved")
 
-# ============================================================
-# SECTION: updated heatmap (Fig 1C) with dual annotation
-# ============================================================
-
-established <- character(length(colnames(meta_act)))
-names(established) <- colnames(meta_act)
-established[tcga_ids]  <- tcga_subtype_named[tcga_ids]
-established[mtbrc_ids] <- paste0("IntClust_", mtbrc_intclust_named[mtbrc_ids])
-
-col_anno <- data.frame(
-  Cohort                 = cohort_of,
-  `Established subtype`  = established,
-  `De novo cluster`      = cl_named[colnames(meta_act)],
-  row.names              = colnames(meta_act),
-  check.names            = FALSE
-)
-
-# No embedded title: panel/figure captions belong in the manuscript
-# figure legend, not baked into the image.
-ph <- pheatmap(
-  meta_act[sig_tfs, ],
-  color                    = colorRampPalette(c("#2980B9","white","#C0392B"))(100),
-  clustering_distance_cols = "correlation",
-  clustering_method        = "ward.D2",
-  cluster_rows             = TRUE,
-  show_colnames            = FALSE,
-  annotation_col           = col_anno,
-  silent                   = TRUE
-)
-
-# ============================================================
-# SECTION: assemble Figure 1 (submission) — panels A/B built in
-# compare_kbhb_mrs.R (NES concordance scatter, meta-NES lollipop),
-# reloaded here, combined with the updated panel C above (7 significant
-# Kbhb TMRs, established subtype + de novo cluster annotation).
-# ============================================================
-
-fig1 <- readRDS("data/fig1_nes_scatter.rds")
-fig2 <- readRDS("data/fig2_lollipop_metanes.rds")
-panel_c <- patchwork::wrap_elements(full = ph$gtable)
-
-figure1 <- (fig1 | fig2) / panel_c +
-  plot_layout(heights = c(1, 1.3)) +
-  plot_annotation(
-    caption    = "Huang et al. 2021 gene set | ARACNe-AP + msVIPER | TCGA + METABRIC",
-    tag_levels = "A",
-    theme      = theme(
-      plot.tag = element_text(face = "bold", size = 16)
-    )
-  )
-
-ggsave("figures/Figure1.pdf", figure1, width = 16, height = 14)
-message("figures/Figure1.pdf saved")
+# Panel C (heatmap) y ensamblaje final de la Figura 1 se movieron a
+# figure1_panel_c.R — ver README.
 
 message("\n====  TASK 1 COMPLETE  ====")

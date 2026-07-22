@@ -534,9 +534,9 @@ message("data/ORA_top_shared_pathways.tsv saved")
 # ── 5.7 Save ORA results ─────────────────────────────────────
 
 saveRDS(list(go = cc_go, reactome = cc_react), "data/kbhb_ora_results.rds")
-write.table(as.data.frame(cc_go),    "data/ORA_GO_BP.tsv",    sep = "\t", quote = FALSE, row.names = FALSE)
-write.table(as.data.frame(cc_react), "data/ORA_Reactome.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
-message("data/kbhb_ora_results.rds, data/ORA_GO_BP.tsv, data/ORA_Reactome.tsv saved")
+write.table(as.data.frame(cc_go),    "data/Supplementary_TableS1_ORA_GO_BP.tsv",    sep = "\t", quote = FALSE, row.names = FALSE)
+write.table(as.data.frame(cc_react), "data/Supplementary_TableS2_ORA_Reactome.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
+message("data/kbhb_ora_results.rds, data/Supplementary_TableS1_ORA_GO_BP.tsv, data/Supplementary_TableS2_ORA_Reactome.tsv saved")
 
 
 message("\n====  COMPARISON COMPLETE  ====")

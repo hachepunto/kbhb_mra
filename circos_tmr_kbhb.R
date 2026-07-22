@@ -431,6 +431,6 @@ fig_sankey <- ggplot(
   ) +
   labs(title = "Kbhb TMR regulons → DE Kbhb gene categories  (ARACNe TCGA Basal)")
 
-ggsave("figures/FigureS4.pdf", fig_sankey, width = 10, height = 7)
-ggsave("figures/FigureS4.png", fig_sankey, width = 10, height = 7, dpi = 300)
-message("figures/FigureS4.pdf + .png saved")
+ggsave("figures/Supplementary_FigureS5_sankey_tmr_kbhb.pdf", fig_sankey, width = 10, height = 7)
+ggsave("figures/Supplementary_FigureS5_sankey_tmr_kbhb.png", fig_sankey, width = 10, height = 7, dpi = 300)
+message("figures/Supplementary_FigureS5_sankey_tmr_kbhb.pdf + .png saved")

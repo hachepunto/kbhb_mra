@@ -1,0 +1,7 @@
+test	n	p	method	FDR
+TCGA: de novo cluster vs ER status	188	1	Fisher (simulated)	1
+TCGA: de novo cluster vs PR status	186	1	Fisher (simulated)	1
+TCGA: de novo cluster vs HER2 status	174	1	Fisher (simulated)	1
+METABRIC: de novo cluster vs ER status	209	5.75265311552828e-05	Fisher (simulated)	0.000115053062310566
+METABRIC: de novo cluster vs PR status	209	4.49854500542414e-06	Fisher (simulated)	1.34956350162724e-05
+METABRIC: de novo cluster vs HER2 status	209	1.08556688851315e-06	Fisher (simulated)	6.5134013310789e-06

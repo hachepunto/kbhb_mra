@@ -1,0 +1,25 @@
+test	cluster	status	Freq
+TCGA: de novo cluster vs ER status	C1	Negative	53
+TCGA: de novo cluster vs ER status	C2	Negative	113
+TCGA: de novo cluster vs ER status	C1	Positive	7
+TCGA: de novo cluster vs ER status	C2	Positive	15
+TCGA: de novo cluster vs PR status	C1	Negative	54
+TCGA: de novo cluster vs PR status	C2	Negative	119
+TCGA: de novo cluster vs PR status	C1	Positive	4
+TCGA: de novo cluster vs PR status	C2	Positive	9
+TCGA: de novo cluster vs HER2 status	C1	Negative	53
+TCGA: de novo cluster vs HER2 status	C2	Negative	107
+TCGA: de novo cluster vs HER2 status	C1	Positive	5
+TCGA: de novo cluster vs HER2 status	C2	Positive	9
+METABRIC: de novo cluster vs ER status	C1	Negative	58
+METABRIC: de novo cluster vs ER status	C2	Negative	122
+METABRIC: de novo cluster vs ER status	C1	Positive	21
+METABRIC: de novo cluster vs ER status	C2	Positive	8
+METABRIC: de novo cluster vs PR status	C1	Negative	63
+METABRIC: de novo cluster vs PR status	C2	Negative	128
+METABRIC: de novo cluster vs PR status	C1	Positive	16
+METABRIC: de novo cluster vs PR status	C2	Positive	2
+METABRIC: de novo cluster vs HER2 status	C1	Negative	60
+METABRIC: de novo cluster vs HER2 status	C2	Negative	127
+METABRIC: de novo cluster vs HER2 status	C1	Positive	19
+METABRIC: de novo cluster vs HER2 status	C2	Positive	3
