@@ -215,7 +215,19 @@ fig_compare <- ggplot(comparison_full, aes(x = subtype, y = regulator)) +
     na.value = "grey85", name = "meta-NES\n(Stouffer)"
   ) +
   scale_shape_manual(name = "Status", values = c(
-    "Significant (FDR < 0.05)" = 21, "Not significant" = 21, "Not evaluable" = 4)) +
+    "Significant (FDR < 0.05)" = 21, "Not significant" = 21, "Not evaluable" = 4),
+    # "fill" is a separate continuous scale (meta-NES), not part of this
+    # discrete "Status" guide, so ggplot has no fill to show in the legend
+    # keys and defaults to blank/white for all three -- misleadingly implying
+    # "Not significant" points are pale/white when the actual points are
+    # solid grey85 (na.value, set below via fill_value <- NA for that group).
+    # override.aes fixes only that one key to match the real point color;
+    # "Significant" is left blank on purpose -- its points take a whole
+    # range of colors from the continuous scale, so no single fill would be
+    # accurate there, and that scale's own colorbar legend covers it.
+    guide = guide_legend(override.aes = list(
+      fill = c("Significant (FDR < 0.05)" = NA, "Not significant" = "grey85", "Not evaluable" = NA)
+    ))) +
   scale_size_manual(name = "Status", values = c(
     "Significant (FDR < 0.05)" = 8, "Not significant" = 3.5, "Not evaluable" = 4.5)) +
   scale_colour_manual(name = "Status", values = c(

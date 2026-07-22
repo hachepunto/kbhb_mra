@@ -469,6 +469,7 @@ fig_ora <- ggplot(df_top, aes(x = Cluster, y = Label)) +
   scale_color_gradientn(
     colors = c("#C0392B", "#8E44AD", "#2980B9"),
     trans  = "log10",
+    labels = scales::label_log(),   # proper scientific notation (10^-4) instead of R's "1e-04"
     name   = "p.adjust",
     guide  = guide_colorbar(barheight = 6)
   ) +
@@ -485,9 +486,10 @@ fig_ora <- ggplot(df_top, aes(x = Cluster, y = Label)) +
   ) +
   labs(
     x     = NULL,
-    y     = NULL,
-    title = "ORA of significant TMR regulons — Top 20 pathways per database"
+    y     = NULL
   )
+  # No embedded title: panel/figure captions belong in the manuscript
+  # figure legend, not baked into the image (same convention as elsewhere).
 
 ggsave("figures/fig_ora_tmrs.pdf", fig_ora, width = 8, height = 12)
 message("figures/fig_ora_tmrs.pdf saved")

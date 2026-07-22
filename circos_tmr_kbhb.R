@@ -346,7 +346,8 @@ save_circos_figure <- function(file, ...) {
   do.call(if (grepl("\\.pdf$", file)) pdf else png, c(list(file), list(...)))
   par(mar = c(1, 1, 2, 1))
   draw_circos()
-  title("Kbhb TMR regulons → DE Kbhb genes  (ARACNe TCGA Basal)", cex.main = 0.95)
+  # No embedded title: panel/figure captions belong in the manuscript
+  # figure legend, not baked into the image (same convention as elsewhere).
   draw(make_legend(),
        x = unit(0.85, "npc"), y = unit(0.50, "npc"), just = c("left", "center"))
   dev.off()
