@@ -395,12 +395,13 @@ panel_c <- patchwork::wrap_elements(full = panel_c_grob)
 figure1 <- (fig1 | fig2) / panel_c +
   plot_layout(heights = c(1, 2)) +
   plot_annotation(
-    caption    = "Huang et al. 2021 gene set | ARACNe-AP + msVIPER | TCGA + METABRIC",
     tag_levels = "A",
     theme      = theme(
       plot.tag = element_text(face = "bold", size = 16)
     )
   )
+# No embedded caption: panel/figure captions belong in the manuscript figure
+# legend, not baked into the image (same convention as elsewhere).
 
 ggsave("figures/Figure1.pdf", figure1, width = 16, height = 18)
 message("figures/Figure1.pdf saved")
