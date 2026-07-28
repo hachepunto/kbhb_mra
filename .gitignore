@@ -80,6 +80,15 @@ extra_data/
 # data, regenerable by re-running that script (auto-downloads if missing).
 /brca_tcga_pub
 
+# Supplemental data de Thennavan et al. 2021, Cell Genomics 1(3):100067
+# (doi:10.1016/j.xgen.2021.100067), fuente del grado histologico del TCGA-BRCA
+# derivado de los tres componentes Nottingham (ver tareas_minor_revision2.md).
+# Solo se trackea Data S2 (mmc3.xlsx, 76 KB), que es el unico que consume el
+# pipeline; mmc1/mmc4/mmc8 pesan ~16 MB entre los tres y son descargables del
+# articulo, que es open access.
+PMID_35465400/*
+!PMID_35465400/1-s2.0-S2666979X21000835-mmc3.xlsx
+
 # Draft figures produced directly by the scripts (unnumbered names). The
 # final numbered Figure*.pdf/FigureS*.pdf under figures/ are curated copies
 # of these for the manuscript and ARE tracked.
@@ -127,6 +136,8 @@ methods_kbhb_mra.md
 kbhb_mra_project_summary.md
 tareas_clauco_major_revision.md
 resultado_tareas_clauco.md
+tareas_minor_revision2.md
+CLAUDE.md
 
 # Hive plot prototype (superseded by circos + sankey)
 hiveplot_tmr_kbhb.py
