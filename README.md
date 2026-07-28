@@ -28,7 +28,8 @@ Computational pipeline to identify and characterize transcriptional master regul
 | `mra_kbhb.R` | msVIPER MRA with Kbhb signature; shadow analysis; Stouffer meta-analysis |
 | `de_kbhb.R` | Differential expression (DESeq2 / limma) and cross-cohort concordance classification |
 | `compare_kbhb_mrs.R` | ORA of TMR regulons (clusterProfiler + ReactomePA); figures; summary tables |
-| `basal_subtype_clinical.R` | Basal-subtype associations (Lehmann/Bareche, IntClust), continuous composite score, de novo clustering, survival (KM/Cox) |
+| `basal_subtype_clinical.R` | Basal-subtype associations (Lehmann/Bareche, IntClust), continuous composite score, de novo clustering, survival (KM/Cox); editor-requested de novo cluster vs. histologic grade association |
+| `tcga_histologic_grade.R` | Derives TCGA-BRCA histologic (Nottingham) grade from Thennavan et al. 2021 Data S2 (tubule formation, nuclear pleomorphism, mitotic count), joined to the Basal cohort by 12-char patient barcode — TCGA's central clinical data does not report grade for this tumor type |
 | `figure1_panel_c.R` | Redesigned Figure 1 panel C (ComplexHeatmap: PAM50/IntClust/de novo cluster + clinical annotations) and final Figure 1 assembly; editor-requested ER/PR/HER2 vs. de novo cluster association. TCGA clinical fields are consolidated per-field by coverage across 4 candidate sources (`cd` colData, `TCGAquery_subtype()`, cBioPortal `brca_tcga_pub` 2012, GDC BCR Biotab) — see in-script comments for the field-by-field justification |
 | `tcga_ic10_classification.R` | Applies the published iC10 classifier (Ali et al. 2014, Genome Biology) to TCGA-BRCA Basal samples via GDC copy-number segments, to obtain an IntClust-equivalent genomic annotation for TCGA (not available from any public TCGA source otherwise); cross-tabulates against the de novo TMR cluster |
 | `circos_tmr_kbhb.R` | Circos plot (TMR → DE Kbhb genes, ARACNe support) + Sankey diagram |
@@ -84,15 +85,49 @@ TCGA and METABRIC expression data are downloaded automatically by `download_tcga
 ```bash
 Rscript brca_tcga_mtbrc.R        # 1. Download + pre-process TCGA and METABRIC
 Rscript basal_pre_networks.R     # 2. Export matrices for ARACNe-AP
-# → Run ARACNe-AP on cluster
+# → Run ARACNe-AP on cluster (external, manual — see "Manual/external steps" below)
 Rscript mra_kbhb.R               # 3. MRA + meta-analysis
 Rscript de_kbhb.R                # 4. Differential expression
 Rscript compare_kbhb_mrs.R       # 5. ORA and summary figures
 Rscript basal_subtype_clinical.R # 5a. Subtype associations, composite score, de novo clustering, survival
-Rscript figure1_panel_c.R        # 5b. Panel C (heatmap) + ensamblaje Figura 1
-Rscript tcga_ic10_classification.R # 5c. TCGA IntClust-equivalent genomic classification (iC10)
+Rscript tcga_histologic_grade.R  # 5b. TCGA histologic grade from Thennavan et al. 2021 Data S2
+Rscript figure1_panel_c.R        # 5c. Panel C (heatmap) + Figure 1 assembly (reads 5a and 5b's outputs)
+Rscript tcga_ic10_classification.R # 5d. TCGA IntClust-equivalent genomic classification (iC10)
 Rscript circos_tmr_kbhb.R        # 6. Circos + Sankey visualization
+Rscript build_supplementary_tables_xlsx.R # 7. Consolidate Supplementary_Table*.tsv into .xlsx
 ```
+
+`tcga_histologic_grade.R` must run before `figure1_panel_c.R`: the latter reads
+`data/tcga_basal_grade_thennavan.tsv` for the Figure 1C Grade track and errors out
+(`stopifnot`) if it's missing. Likewise, `build_supplementary_tables_xlsx.R` only
+packages whatever `Supplementary_Table*.tsv` files are already on disk — run the
+scripts that produce them first if a table is missing or stale.
+
+There is no single `run_all.R`: several steps above are not scripted R at all
+(ARACNe-AP, a separate compute-cluster job) or depend on external services that can
+fail, stall, or require credentials/interaction (GDC, cBioPortal) — a one-shot
+driver would misrepresent this pipeline as more push-button than it is.
+
+### Manual/external steps
+
+- **ARACNe-AP** (Lachmann et al. 2016) runs outside R, on a Linux compute cluster,
+  between `basal_pre_networks.R` and `mra_kbhb.R` — see `run_aracne_ap_luminal_her2.sh`
+  for the shell-script pattern used (the Basal-cohort run predates that script and
+  isn't itself checked in). Its output (`data/tcga_basal_network.txt`,
+  `data/mtbrc_basal_network.txt`) is already versioned in this repo, so this step
+  only needs to be repeated if those networks are intentionally regenerated —
+  **do not re-run it** otherwise (hours of compute; see the note in `CLAUDE.md`).
+- **GDC downloads** happen automatically via `TCGAbiolinks::GDCquery()`/`GDCdownload()`
+  inside `brca_tcga_mtbrc.R` (RNA-seq + clinical), `tcga_ic10_classification.R`
+  (copy-number segments), and `figure1_panel_c.R` (BCR Biotab clinical supplement) —
+  no manual step required, but each needs network access to the GDC API and can be
+  slow or fail transiently.
+- **METABRIC** raw files are fetched from cBioPortal by `brca_tcga_mtbrc.R`
+  (`download.file()`, skipped if `brca_metabric/` is already present) — same
+  external-network caveat as GDC.
+- **Thennavan et al. 2021 Data S2** (`PMID_35465400/*.xlsx`) is third-party
+  supplementary material already included in this repository (see `CLAUDE.md`) —
+  nothing to download, `tcga_histologic_grade.R` reads it in place.
 
 ---
 

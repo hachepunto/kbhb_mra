@@ -1,0 +1,13 @@
+test	cluster	grade	Freq
+TCGA: de novo cluster vs Grade	C1	1	1
+TCGA: de novo cluster vs Grade	C2	1	3
+TCGA: de novo cluster vs Grade	C1	2	10
+TCGA: de novo cluster vs Grade	C2	2	14
+TCGA: de novo cluster vs Grade	C1	3	45
+TCGA: de novo cluster vs Grade	C2	3	109
+METABRIC: de novo cluster vs Grade	C1	1	2
+METABRIC: de novo cluster vs Grade	C2	1	0
+METABRIC: de novo cluster vs Grade	C1	2	13
+METABRIC: de novo cluster vs Grade	C2	2	4
+METABRIC: de novo cluster vs Grade	C1	3	62
+METABRIC: de novo cluster vs Grade	C2	3	125

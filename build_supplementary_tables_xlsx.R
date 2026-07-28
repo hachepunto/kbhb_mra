@@ -47,7 +47,8 @@ tables <- list(
   S5b = "data/Supplementary_TableS5b_tcga_ic10_denovo_cluster_full.tsv",
   S6  = "data/Supplementary_TableS6_metabric_ic10_denovo_cluster.tsv",
   S6b = "data/Supplementary_TableS6b_metabric_ic10_denovo_cluster_full.tsv",
-  S7  = "data/Supplementary_TableS7_denovo_cluster_mean_NES.tsv"
+  S7  = "data/Supplementary_TableS7_denovo_cluster_mean_NES.tsv",
+  S8  = "data/Supplementary_TableS8_grade_denovo_cluster.tsv"
 )
 stopifnot(all(file.exists(unlist(tables))))   # fail loudly if an upstream script hasn't been (re-)run yet
 
@@ -63,7 +64,8 @@ contents <- data.frame(
     S5b = "TCGA: iC10 genomic subtype vs. de novo Kbhb-TMR cluster, full 10-group table. Reference/transparency only -- several cells have n<=5 (see low_n_group column).",
     S6  = "METABRIC: IntClust vs. de novo Kbhb-TMR cluster, collapsed to the well-powered IntClust10-vs-rest 2x2. Reported result.",
     S6b = "METABRIC: IntClust vs. de novo Kbhb-TMR cluster, full (>=10-group) table. Reference/transparency only -- several cells have n<=5 (see low_n_group column).",
-    S7  = "Mean Kbhb-TMR activity (NES) per TMR, per Cohort x de novo cluster block (the same 4 blocks split in Figure 1C)."
+    S7  = "Mean Kbhb-TMR activity (NES) per TMR, per Cohort x de novo cluster block (the same 4 blocks split in Figure 1C).",
+    S8  = "Editor-requested addition (IJMS Minor Revision round 2): contingency counts (cluster x histologic grade, per cohort). TCGA grade derived from Thennavan et al. 2021 Data S2 (Cell Genomics 1:100067, PMID 35465400); METABRIC grade from clinical annotation. Fisher exact test (Monte Carlo p, BH-adjusted, independent 2-test family -- see data/basal_denovo_cluster_vs_grade.tsv) reported in Results/Methods."
   ),
   stringsAsFactors = FALSE
 )

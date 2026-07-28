@@ -122,10 +122,17 @@ cat("\n-- AGE_AT_DIAGNOSIS summary --\n"); print(summary(mtbrc_clin$AGE_AT_DIAGN
 #   download), and it is the identical field basal_subtype_clinical.R's Cox
 #   analysis already draws from via `bs` -- using it here keeps the age value
 #   consistent across both scripts by construction.
-# - Grade -> stays NA for TCGA. cd$paper_Tumor_Grade has 195/195 "non-missing"
-#   cells, but every one of them is the literal string "NA" (not true NA) --
-#   i.e. BRCA histological grade is simply not centrally reported in the
-#   PanCanAtlas source for this tumor type.
+# - Grade -> cd$paper_Tumor_Grade has 195/195 "non-missing" cells, but every
+#   one of them is the literal string "NA" (not true NA) -- BRCA histologic
+#   grade is simply not centrally reported in the PanCanAtlas source for this
+#   tumor type. Per the editor's second Minor Revision comment, grade is
+#   instead reconstructed from Thennavan et al. 2021 (Cell Genomics 1:100067,
+#   PMID 35465400) Data S2, which re-scored the three Nottingham components
+#   from histology slides via a pathologist panel. Derived once in
+#   tcga_histologic_grade.R -> data/tcga_basal_grade_thennavan.tsv, read-only
+#   here (same reuse-not-recompute pattern as the rest of this script).
+#   182/195 samples get a grade this way (13 NA: 7 patients not in
+#   Thennavan's 1,063-patient cohort, 6 with an unscored component).
 #
 # IntClust NA (grey) for the 4 TCGA samples iC10 couldn't classify (no usable
 # copy-number segment data) is the only remaining expected TCGA missingness
@@ -175,6 +182,11 @@ print(summary(cd_tcga$paper_age_at_initial_pathologic_diagnosis[m_cd]))
 cat("\n-- cd$paper_Tumor_Grade (confirms literal \"NA\" string, not true missingness) --\n")
 print(table(cd_tcga$paper_Tumor_Grade[m_cd], useNA = "always"))
 
+thennavan_grade <- read.delim("data/tcga_basal_grade_thennavan.tsv", stringsAsFactors = FALSE)
+stopifnot(identical(thennavan_grade$sample_id, tcga_ids))
+cat("\n-- grade, from Thennavan et al. 2021 Data S2 (tcga_histologic_grade.R) --\n")
+print(table(thennavan_grade$grade, useNA = "always"))
+
 tcga_clin <- data.frame(
   sample_id         = tcga_ids,
   pam50             = ifelse(cd_tcga$paper_BRCA_Subtype_PAM50[m_cd] %in% "Basal", "Basal-like", NA_character_),
@@ -183,7 +195,7 @@ tcga_clin <- data.frame(
   her2_status       = her2_final,
   histological_type = gdc_biotab$histological_type[m_gdc],
   age               = cd_tcga$paper_age_at_initial_pathologic_diagnosis[m_cd],
-  grade             = NA_character_,
+  grade             = thennavan_grade$grade,
   row.names         = NULL, stringsAsFactors = FALSE
 )
 write.table(tcga_clin, "data/tcga_basal_clinical_extra.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
@@ -219,7 +231,7 @@ tcga_hist     <- setNames(
                  idc = "Infiltrating Ductal Carcinoma",
                  ilc = "Infiltrating Lobular Carcinoma"),
   tcga_clin$sample_id)
-tcga_grade    <- setNames(rep(NA_character_, nrow(tcga_clin)), tcga_clin$sample_id)
+tcga_grade    <- setNames(tcga_clin$grade, tcga_clin$sample_id)
 tcga_age      <- setNames(tcga_clin$age, tcga_clin$sample_id)
 
 # TCGA has no public IntClust call, but tcga_ic10_classification.R applies
@@ -286,11 +298,14 @@ intclust_colors <- c(
 denovo_colors <- setNames(brewer.pal(max(3, k_best), "Dark2")[seq_len(k_best)], sort(unique(denovo_v)))
 cohort_colors <- c(TCGA = "#E69F00", METABRIC = "#009E73")
 hist_colors   <- c(IDC = "#66C2A5", ILC = "#FC8D62", Other = "#8DA0CB")
-# Sequential blues (increasing darkness = higher grade); TCGA is 100% NA for
-# this field (grey85, same as every other NA) -- only METABRIC has real
-# values here, and they are heavily skewed (Grade 1 n=2, Grade 2 n=17,
-# Grade 3 n=187), so Grade 1 is nearly invisible in the heatmap by design,
-# not a rendering issue.
+# Sequential blues (increasing darkness = higher grade); scale must be
+# identical across cohorts for the track to be comparable. Both cohorts are
+# heavily skewed towards Grade 3 (METABRIC: G1 n=2, G2 n=17, G3 n=187; TCGA,
+# via Thennavan: G1 n=4, G2 n=24, G3 n=154, 13/195 NA), so Grade 1 is nearly
+# invisible in the heatmap by design, not a rendering issue. TCGA's remaining
+# NAs (grey85, same as every other NA) reflect real, disclosed missingness in
+# the Thennavan source (patient not in their cohort, or an unscored
+# component) -- not the prior "not reported at all" situation.
 grade_colors  <- c("1" = "#C6DBEF", "2" = "#6BAED6", "3" = "#08519C")
 er_colors     <- c(Positive = "#D95F02", Negative = "#7570B3")
 pr_colors     <- c(Positive = "#E7298A", Negative = "#66A61E")

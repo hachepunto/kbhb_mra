@@ -161,6 +161,15 @@ mtbrc_grade_num <- suppressWarnings(as.numeric(mtbrc_clin_basal$GRADE))
 mtbrc_stage_num <- suppressWarnings(as.numeric(mtbrc_clin_basal$TUMOR_STAGE))
 mtbrc_age       <- mtbrc_clin_basal$AGE_AT_DIAGNOSIS
 
+# TCGA grade (added in IJMS Minor Revision round 2, see
+# tcga_histologic_grade.R): treated as numeric ordinal 1/2/3, exactly like
+# mtbrc_grade_num above -- same as.numeric() coercion, same spearman_test()
+# helper, so the two cohorts are handled identically here.
+tcga_grade_for_corr <- read.delim("data/tcga_basal_grade_thennavan.tsv", stringsAsFactors = FALSE)
+tcga_grade_num <- suppressWarnings(as.numeric(
+  setNames(tcga_grade_for_corr$grade, tcga_grade_for_corr$sample_id)[tcga_ids]
+))
+
 spearman_test <- function(x, y, label) {
   ok <- complete.cases(x, y)
   if (sum(ok) < 5) return(data.frame(variable = label, n = sum(ok), rho = NA, p = NA))
@@ -174,19 +183,26 @@ comp_mtbrc <- composite[mtbrc_ids]
 clin_corr <- rbind(
   spearman_test(comp_tcga,  tcga_stage_num,  "TCGA: composite vs pathologic_stage"),
   spearman_test(comp_tcga,  tcga_age,        "TCGA: composite vs age_at_diagnosis"),
+  spearman_test(comp_tcga,  tcga_grade_num,  "TCGA: composite vs Grade"),
   spearman_test(comp_mtbrc, mtbrc_grade_num, "METABRIC: composite vs GRADE"),
   spearman_test(comp_mtbrc, mtbrc_stage_num, "METABRIC: composite vs TUMOR_STAGE"),
   spearman_test(comp_mtbrc, mtbrc_age,       "METABRIC: composite vs AGE_AT_DIAGNOSIS")
 )
 clin_corr$FDR <- p.adjust(clin_corr$p, method = "BH")
-cat("\n=== 1b: Spearman composite score vs. clinico-pathological variables ===\n")
+cat("\n=== 1b: Spearman composite score vs. clinico-pathological variables (BH over 6 tests) ===\n")
 print(clin_corr, row.names = FALSE)
 write.table(clin_corr, "data/basal_composite_score_clinical_corr.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
 message("data/basal_composite_score_clinical_corr.tsv saved")
 
-# Note: TCGA Tumor_Grade is NA for BRCA in TCGAquery_subtype (not centrally
-# reported for this tumor type) -> that correlation is skipped.
-cat("\nTCGA Tumor_Grade available:", sum(!is.na(tcga_clin_map$Tumor_Grade)), "of", nrow(tcga_clin_map), "\n")
+# TCGA Tumor_Grade in TCGAquery_subtype (PanCanAtlas) is NA for BRCA (not
+# centrally reported for this tumor type) -- kept as a diagnostic print only;
+# the actual TCGA grade correlation above uses tcga_grade_num (Thennavan et
+# al. 2021 Data S2), not this field.
+cat("\nTCGA Tumor_Grade (TCGAquery_subtype, PanCanAtlas) available:", sum(!is.na(tcga_clin_map$Tumor_Grade)), "of", nrow(tcga_clin_map), "\n")
+
+cat("\n-- mean composite score by histologic grade, per cohort --\n")
+print(aggregate(comp_tcga  ~ tcga_grade_num,  FUN = mean))
+print(aggregate(comp_mtbrc ~ mtbrc_grade_num, FUN = mean))
 
 # ── Cox proportional hazards (continuous score) ──
 
@@ -259,6 +275,14 @@ fisher_or_chisq <- function(tab_x, tab_y, label) {
   ok <- !is.na(tab_x) & !is.na(tab_y) & nzchar(tab_y)
   tt <- table(tab_x[ok], tab_y[ok])
   if (nrow(tt) < 2 || ncol(tt) < 2) return(data.frame(test = label, p = NA, method = "n/a"))
+  # Seeded right at the call, not once at the top of the script: for tables
+  # bigger than 2x2, fisher.test(simulate.p.value = TRUE) draws from a Monte
+  # Carlo null (2x2 tables always get the closed-form exact hypergeometric
+  # regardless of this flag, so this only matters here). Seeding per call
+  # makes each test's p-value depend only on its own data, not on how many
+  # random draws happened earlier in the script -- reordering tests, or
+  # adding a new one in between, can't shift a result that isn't touched.
+  set.seed(42)
   ft <- tryCatch(fisher.test(tt, simulate.p.value = TRUE, B = 10000),
                  error = function(e) NULL)
   if (!is.null(ft)) return(data.frame(test = label, p = ft$p.value, method = "Fisher (simulated)"))
@@ -272,6 +296,60 @@ cluster_vs_subtype <- rbind(tab1, tab2)
 cluster_vs_subtype$FDR <- p.adjust(cluster_vs_subtype$p, method = "BH")
 cat("\n=== de novo cluster <-> established subtype ===\n"); print(cluster_vs_subtype, row.names = FALSE)
 write.table(cluster_vs_subtype, "data/basal_denovo_cluster_vs_subtype.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
+
+# ── de novo cluster <-> histologic grade (chi-squared/Fisher) ──
+#
+# Added in IJMS Minor Revision round 2: the editor asked that TCGA grade be
+# reconstructed from Thennavan et al. 2021 Data S2 (see
+# tcga_histologic_grade.R -> data/tcga_basal_grade_thennavan.tsv). This is
+# its own, independent BH family of 2 tests (TCGA, METABRIC) -- deliberately
+# NOT folded into cluster_vs_subtype above (subtype/IntClust, 2 tests) or
+# into figure1_panel_c.R's receptor_assoc (ER/PR/HER2, 6 tests): merging
+# would recompute the FDRs of tests already reported in the manuscript for
+# those two families, which the second Minor Revision round must not touch.
+
+tcga_grade_df    <- read.delim("data/tcga_basal_grade_thennavan.tsv", stringsAsFactors = FALSE)
+tcga_grade_named <- setNames(tcga_grade_df$grade, tcga_grade_df$sample_id)
+mtbrc_grade_named <- setNames(as.character(mtbrc_clin_basal$GRADE), mtbrc_ids)
+
+fisher_grade <- function(tab_x, tab_y, label) {
+  ok <- !is.na(tab_x) & !is.na(tab_y) & nzchar(tab_y)
+  tt <- table(cluster = tab_x[ok], grade = tab_y[ok])
+  cat("\n--", label, "-- (n =", sum(ok), ")\n"); print(tt)
+  if (nrow(tt) < 2 || ncol(tt) < 2) {
+    return(list(res = data.frame(test = label, n = sum(ok), p = NA, method = "n/a"), tab = tt))
+  }
+  set.seed(42)   # per-call seed -- see fisher_or_chisq() above for why
+  ft <- tryCatch(fisher.test(tt, simulate.p.value = TRUE, B = 10000), error = function(e) NULL)
+  res <- if (!is.null(ft)) {
+    data.frame(test = label, n = sum(ok), p = ft$p.value, method = "Fisher (simulated)")
+  } else {
+    ct <- chisq.test(tt)
+    data.frame(test = label, n = sum(ok), p = ct$p.value, method = "Chi-squared")
+  }
+  list(res = res, tab = tt)
+}
+
+cat("\n=== de novo cluster <-> histologic grade: contingency tables (n per cell) ===\n")
+g_tcga  <- fisher_grade(cl_named[tcga_ids],  tcga_grade_named[tcga_ids],
+                         "TCGA: de novo cluster vs Grade")
+g_mtbrc <- fisher_grade(cl_named[mtbrc_ids], mtbrc_grade_named[mtbrc_ids],
+                         "METABRIC: de novo cluster vs Grade")
+
+cluster_vs_grade <- rbind(g_tcga$res, g_mtbrc$res)
+cluster_vs_grade$FDR <- p.adjust(cluster_vs_grade$p, method = "BH")
+cat("\n=== de novo cluster <-> histologic grade (independent BH family, n = 2 tests) ===\n")
+print(cluster_vs_grade, row.names = FALSE)
+write.table(cluster_vs_grade, "data/basal_denovo_cluster_vs_grade.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
+message("data/basal_denovo_cluster_vs_grade.tsv saved")
+
+grade_contingency <- rbind(
+  cbind(test = "TCGA: de novo cluster vs Grade",     as.data.frame(g_tcga$tab)),
+  cbind(test = "METABRIC: de novo cluster vs Grade", as.data.frame(g_mtbrc$tab))
+)
+write.table(grade_contingency, "data/Supplementary_TableS8_grade_denovo_cluster.tsv",
+            sep = "\t", quote = FALSE, row.names = FALSE)
+message("data/Supplementary_TableS8_grade_denovo_cluster.tsv saved (", nrow(grade_contingency), " rows)")
 
 # ── de novo cluster <-> survival (KM + log-rank), per cohort ──
 
