@@ -111,9 +111,11 @@ driver would misrepresent this pipeline as more push-button than it is.
 ### Manual/external steps
 
 - **ARACNe-AP** (Lachmann et al. 2016) runs outside R, on a Linux compute cluster,
-  between `basal_pre_networks.R` and `mra_kbhb.R` — see `run_aracne_ap_luminal_her2.sh`
-  for the shell-script pattern used (the Basal-cohort run predates that script and
-  isn't itself checked in). Its output (`data/tcga_basal_network.txt`,
+  between `basal_pre_networks.R` and `mra_kbhb.R` — see `run_aracne_ap.sh` (Basal
+  cohort) and `run_aracne_ap_luminal_her2.sh` (LumA/LumB/HER2 extension) for the
+  exact shell commands and parameters (`--pvalue 1E-8`, 100 bootstraps, fixed seed).
+  Both hardcode a path to the ARACNe-AP jar on this project's compute server —
+  adjust `ARACNE=` if running elsewhere. Their output (`data/tcga_basal_network.txt`,
   `data/mtbrc_basal_network.txt`) is already versioned in this repo, so this step
   only needs to be repeated if those networks are intentionally regenerated —
   **do not re-run it** otherwise (hours of compute; see the note in `CLAUDE.md`).
