@@ -451,7 +451,16 @@ if (length(missing_tmrs) > 0) {
 
 df_top <- df_ora %>%
   filter(Description %in% c(top20_go, top20_rx)) %>%
-  mutate(Label = trunc_label(sub("^(GOBP|RCTM)_", "", Description)))
+  mutate(
+    Label = sub("^(GOBP|RCTM)_", "", Description),
+    # Keep this GO-BP term readable in full across two lines; all other long
+    # labels retain the existing 55-character truncation used by the figure.
+    Label = ifelse(
+      Label == "cell surface receptor protein serine/threonine kinase signaling pathway",
+      "cell surface receptor protein serine/threonine\nkinase signaling pathway",
+      trunc_label(Label)
+    )
+  )
 
 # Within each facet, order pathways by ascending n_tmr (most shared at top)
 path_levels <- df_top %>%
